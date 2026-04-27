@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-display: "Montserrat", "Manrope", sans-serif;
+
+  --color-background: #FDFDFD;
+  --color-foreground: #0F172A;
+  
+  --color-evidence-white: #FDFDFD;
+  --color-steel-surface: #F1F5F9;
+  --color-dossier-ink: #0F172A;
+  --color-muted-signal: #64748B;
+  --color-pramaan-blue: #2563EB;
+  --color-risk-amber: #D97706;
+  --color-security-border: rgba(15, 23, 42, 0.08);
+
+  /* shadcn/ui internal mappings for Tailwind v4 */
+  --color-border: var(--color-security-border);
+  --color-input: var(--color-security-border);
+  --color-ring: var(--color-pramaan-blue);
+  --color-primary: var(--color-pramaan-blue);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-steel-surface);
+  --color-secondary-foreground: var(--color-dossier-ink);
+  --color-muted: var(--color-steel-surface);
+  --color-muted-foreground: var(--color-muted-signal);
+  --color-accent: var(--color-steel-surface);
+  --color-accent-foreground: var(--color-dossier-ink);
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  --radius-sharp: 4px;
+  --radius-lg: 8px;
+  --radius-md: calc(8px - 2px);
+  --radius-sm: calc(8px - 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight font-bold;
+  }
+}
