@@ -1,34 +1,29 @@
 import React, { useState } from 'react'
 import { 
-  ShieldCheck, 
   UserCircle
 } from 'lucide-react'
 import { AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 // Feature Components
+import { LandingPage } from './components/LandingPage'
 import { BorrowerPortal } from './components/borrower/BorrowerPortal'
 import { OfficerDashboard } from './components/officer/OfficerDashboard'
+import { PramaanLogo } from './components/ui/PramaanLogo'
 
-type ViewMode = 'borrower' | 'officer'
+type ViewMode = 'landing' | 'borrower' | 'officer'
 
 const App: React.FC = () => {
-  const [viewMode, setViewMode] = useState<ViewMode>('borrower')
+  const [viewMode, setViewMode] = useState<ViewMode>('landing')
 
   return (
     <div className="min-h-screen bg-evidence-white text-dossier-ink font-sans selection:bg-pramaan-blue/10 selection:text-pramaan-blue">
       {/* GLOBAL HEADER */}
       <nav className="border-b border-security-border bg-white sticky top-0 z-50 h-20 flex items-center">
         <div className="max-w-[1440px] w-full mx-auto px-6 lg:px-12 flex justify-between items-center">
-          <div className="flex items-center gap-4 group cursor-default">
-            <div className="w-10 h-10 bg-pramaan-blue flex items-center justify-center rounded-sm transition-transform group-hover:scale-105">
-              <ShieldCheck className="text-white w-6 h-6" />
-            </div>
-            <div className="flex flex-col -space-y-1">
-               <span className="font-display font-black text-2xl tracking-tighter text-dossier-ink">PRAMAAN</span>
-               <span className="text-[9px] font-mono font-bold tracking-[0.3em] text-muted-signal">EVIDENCE // PILOT</span>
-            </div>
-          </div>
+          <button onClick={() => setViewMode('landing')} className="flex items-center group cursor-pointer">
+            <PramaanLogo variant="horizontal" theme="light" className="h-10 w-auto transition-transform group-hover:scale-[1.02]" animate={false} />
+          </button>
 
           <div className="flex items-center gap-8">
             <div className="flex bg-steel-surface p-1.5 rounded-sm border border-security-border">
@@ -65,9 +60,14 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      <main className="max-w-[1440px] mx-auto px-6 lg:px-12 py-12">
+      <main className={cn(
+        "max-w-[1440px] mx-auto",
+        viewMode === 'landing' ? "" : "px-6 lg:px-12 py-12"
+      )}>
         <AnimatePresence mode="wait">
-          {viewMode === 'borrower' ? (
+          {viewMode === 'landing' ? (
+            <LandingPage key="landing" onNavigate={setViewMode} />
+          ) : viewMode === 'borrower' ? (
             <BorrowerPortal key="borrower" />
           ) : (
             <OfficerDashboard key="officer" />
@@ -80,9 +80,7 @@ const App: React.FC = () => {
         <div className="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div className="space-y-4">
              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-dossier-ink flex items-center justify-center rounded-sm">
-                   <ShieldCheck className="text-white w-3.5 h-3.5" />
-                </div>
+                <PramaanLogo variant="icon" theme="light" className="w-6 h-6" animate={false} />
                 <span className="font-display font-black text-sm tracking-tighter uppercase">Pramaan System Architecture</span>
              </div>
              <p className="text-[10px] text-muted-signal max-w-sm leading-relaxed font-medium uppercase tracking-tight">
